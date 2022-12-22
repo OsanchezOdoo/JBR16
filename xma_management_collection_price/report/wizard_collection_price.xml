@@ -1,0 +1,406 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="my_template_collection_price_wizard">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div class="header" style="margin-top:20px;" >
+            <div class="row">
+                <div class="col-3" style="">
+                    <img t-att-src="image_data_uri(company.logo)" style="max-height: 200px; " alt="Logo"/>
+                </div>
+                <div class="col-9 text-right" style="">
+                    <br/><br/><br/><br/><br/><br/>
+                    <h3>Reporte de Proceso</h3>
+                </div>
+            </div>
+            <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                <div class="col-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+        </div>
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-out="0"/>
+        </div>
+        <div class="footer o_standard_footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <li t-if="company.phone" class="list-inline-item">Tel: <span t-field="company.phone"/></li>
+                    <li t-if="company.email" class="list-inline-item">Mail: <span t-field="company.email"/></li>
+                    <li t-if="company.website" class="list-inline-item">Web: <span t-field="company.website"/></li>
+                    <li t-if="company.vat" class="list-inline-item"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                </ul>
+                <div t-field="company.report_footer"/>
+                <div t-if="report_type == 'pdf'">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="collection_price_report_wizard">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="xma_management_collection_price.my_template_collection_price_wizard">
+                    <div class="page">
+                        <style type="text/css">
+                            <!-- .div {
+                                border: 1px solid black;
+                            } -->
+                            <!-- tr {
+                                margin: 15px;
+                                padding: 15px;
+                            } -->
+                            .table_manifest,
+                            .table_manifest th,
+                            .table_manifest td {
+                                border: 1px solid #838383;
+                            }
+                            .color {
+                                background-color:#dab87b;
+                            }
+                        </style>
+
+                        <table class="" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td width="10%"><strong>Lote No.:</strong></td>
+                                    <td width="40%"> <span t-esc="stock_lot_id.name"/></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Fecha:</strong></td>
+                                    <td>04/11/2021</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Productor:</strong></td>
+                                    <td>ABURTO MARTINEZ ENRIQUE</td>
+                                    <td><strong>HASS EXPORTACION</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Huerta:</strong></td>
+                                    <td>EL AGUACATE</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Registro:</strong></td>
+                                    <td>HUE08160820263</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Jefe de Acopio:</strong></td>
+                                    <td>ING. ARTURO C</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tipo de Corte:</strong></td>
+                                    <td>150 GR SIN DAÑO MAYOR</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Peso Neto:</strong></td>
+                                    <td>4,940.00</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Observaciones:</strong></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- <table class="table_manifest" width="60%" style="margin-left:3%; margin-top:10px;">
+                            <thead>
+                                <tr>
+                                    <th colspan="5">Relación de Ordenes de Corte</th>
+                                </tr>
+                                <tr>
+                                    <th>No. de Recepción</th>
+                                    <th>Ticket</th>
+                                    <th>Fecha</th>
+                                    <th class="text-center">Orden de Corte</th>
+                                    <th class="text-center">Kilogramos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">0084136</td>
+                                    <td>127974</td>
+                                    <td>03/11/2021</td>
+                                    <td class="text-center">0087922</td>
+                                    <td class="text-right">4,940.00</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="text-right"><strong>4,940.00</strong></td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+
+                        <table class="table_manifest" width="94%" style="margin-left:3%; margin-top:30px;">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">Reporte del Proceso</th>
+                                    <th colspan="2" class="text-center">Costos</th>
+                                    <th colspan="2" class="text-center">Importe</th>
+                                </tr>
+                                <tr>
+                                    <th>Categoría</th>
+                                    <th>Kilogramos</th>
+                                    <th>%</th>
+                                    <th class="text-center">a Pagar</th>
+                                    <th class="text-center">Estimado</th>
+                                    <th class="text-center">a Pagar</th>
+                                    <th class="text-center">Estimado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="categories_record" t-as="categ">
+                                    <tr>
+                                        <td><span t-esc="categ"/></td>
+                                        <td class="text-right">56.50</td>
+                                        <td>1.14</td>
+                                        <td>42.0000</td>
+                                        <td>70.0000</td>
+                                        <td class="text-right">2,373.00</td>
+                                        <td class="text-right">3,955.00</td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td class="text-right"><strong>Totales</strong></td>
+                                        <td class="text-right"><strong>4,940.00</strong></td>
+                                        <td></td>
+                                        <td><strong>42.0000</strong></td>
+                                        <td><strong>43.9219</strong></td>
+                                        <td class="text-right"><strong>207,480.00</strong></td>
+                                        <td class="text-right"><strong>216,974.30</strong></td>
+                                    </tr> -->
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- <table class="table_manifest" width="94%" style="margin-left:3%; margin-top:30px;">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">Resumen por Mercado</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Factor:</th>
+                                    <th>0.9562</th>
+                                </tr>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th width="10%" class="text-right">Kilogramos</th>
+                                    <th>Costo Promedio</th>
+                                    <th class="text-right">Importe</th>
+                                    <th class="text-right">Porcentaje</th>
+                                    <td width="15%"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>EXPORTACION</td>
+                                    <td class="text-right">4,505.40</td>
+                                    <td class="text-center">42.0000</td>
+                                    <td class="text-right">189,226.80</td>
+                                    <td class="text-right">91.20</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+
+                        <!-- <table class="table_manifest" width="94%" style="margin-left:3%; margin-top:30px;">
+                            <thead>
+                                <tr>
+                                    <th colspan="7">Relación de Gastos</th>
+                                </tr>
+                                <tr>
+                                    <th>Tipo de Gasto</th>
+                                    <th>Proveedor</th>
+                                    <th>Cantidad</th>
+                                    <th>P. Unitario</th>
+                                    <th>Importe</th>
+                                    <td>CXP</td>
+                                    <td>CAP</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ACARREO DE FRUTA</td>
+                                    <td>RABON JBR 18 BUCIO BUCIO AMALIA</td>
+                                    <td class="text-right">1.00</td>
+                                    <td class="text-right">4,536.00</td>
+                                    <td class="text-right">91.20</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+
+                        <!-- <table class="table_manifest" width="94%" style="margin-left:3%; margin-top:10px;">
+                            <thead>
+                                <tr>
+                                    <th width="70%" class="text-right">Total de Gastos</th>
+                                    <th class="text-right">15,456.82</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Gastos por Kilogramo de Fruta</th>
+                                    <th class="text-right">3.1289</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Costo de la Fruta (incluyendo Gastos)</th>
+                                    <th class="text-right">45.13</th>
+                                    <th class="text-right">47.05</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Gastos por Cuenta del Productor</th>
+                                    <th class="text-right">0.00</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Importe a Pagar al Productor</th>
+                                    <th class="text-right">207,480.00</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                            </thead>
+                        </table> -->
+
+                        <!-- <table class="table_manifest" width="94%" style="margin-left:3%; margin-top:10px;">
+                            <thead>
+                                <tr>
+                                    <th width="70%" class="text-right">Total de Gastos</th>
+                                    <th class="text-right">15,456.82</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Gastos por Kilogramo de Fruta</th>
+                                    <th class="text-right">3.1289</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Costo de la Fruta (incluyendo Gastos)</th>
+                                    <th class="text-right">45.13</th>
+                                    <th class="text-right">47.05</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Gastos por Cuenta del Productor</th>
+                                    <th class="text-right">0.00</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Importe a Pagar al Productor</th>
+                                    <th class="text-right">207,480.00</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                            </thead>
+                        </table> -->
+
+                        <!-- <table class="table_manifest" width="94%" style="margin-left:3%; margin-top:10px;">
+                            <thead>
+                                <tr>
+                                    <th width="70%" class="text-right">Total de Gastos</th>
+                                    <th class="text-right">15,456.82</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Gastos por Kilogramo de Fruta</th>
+                                    <th class="text-right">3.1289</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Costo de la Fruta (incluyendo Gastos)</th>
+                                    <th class="text-right">45.13</th>
+                                    <th class="text-right">47.05</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Gastos por Cuenta del Productor</th>
+                                    <th class="text-right">0.00</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Importe a Pagar al Productor</th>
+                                    <th class="text-right">207,480.00</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                            </thead>
+                        </table> -->
+
+                        <!-- <table class="table_manifest" width="94%" style="margin-left:3%; margin-top:10px;">
+                            <thead>
+                                <tr>
+                                    <th width="70%" class="text-right">Total de Gastos</th>
+                                    <th class="text-right">15,456.82</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Gastos por Kilogramo de Fruta</th>
+                                    <th class="text-right">3.1289</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Costo de la Fruta (incluyendo Gastos)</th>
+                                    <th class="text-right">45.13</th>
+                                    <th class="text-right">47.05</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Gastos por Cuenta del Productor</th>
+                                    <th class="text-right">0.00</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Importe a Pagar al Productor</th>
+                                    <th class="text-right">207,480.00</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                            </thead>
+                        </table> -->
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_collection_price_report_wizard" model="report.paperformat">
+        <field name="name">Precio acopio wizard</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">30</field>
+        <field name="margin_left">4</field>
+        <field name="margin_right">4</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">40</field>
+        <field name="dpi">100</field>
+    </record>
+
+    <record id="collection_price_report_action_wizard" model="ir.actions.report">
+        <field name="name">Precio acopio wizard</field>
+        <field name="model">wizard.report.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">xma_management_collection_price.collection_price_report_wizard</field>
+        <field name="report_file">xma_management_collection_price.collection_price_report_wizard</field>
+        <field name="print_report_name">'Precio acopio wizard'</field>
+        <!-- <field name="binding_model_id" ref="mrp.model_mrp_production"/> -->
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_collection_price_report_wizard"/>
+        <!-- <field name="multi">True</field> -->
+    </record>
+</odoo>

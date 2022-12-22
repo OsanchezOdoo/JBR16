@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <record id="inherit_mrp_production_tree_view" model="ir.ui.view">
+        <field name="name">inherit.mrp.production.tree.view</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='do_unreserve']" position="after">
+                <button name="%(xma_management_collection_price.wizard_action_report_lot_view)d" type="action" string="Reporte"/>
+            </xpath>
+        </field>
+    </record> -->
+
+    <record id="inherit_mrp_production_form_view" model="ir.ui.view">
+        <field name="name">inherit.mrp.production.form.view</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='bom_id']" position="after">
+                <field name="lot_id" invisible="1"/>
+                <field name="lot_name" invisible="1"/>
+                <field name="collec_price"/>
+                <field name="manage_price"/>
+                <field name="qty_line"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="inherit_mrp_production_filter_view" model="ir.ui.view">
+        <field name="name">inherit.mrp.production.filter.view</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="lot_id" invisible="1"/>
+                <field name="lot_name"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter string="Lote" name="lot" domain="[]" context="{'group_by': 'lot_name'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

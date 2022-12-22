@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_product_category_form_view" model="ir.ui.view">
+        <field name="name">inherit.product.category.form.view</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="is_collection_price"/>
+                <field name="collection_price_ids">
+                    <tree editable="top" limit="25">
+                        <field name="name"/>
+                        <field name="collection_price"/>
+                        <field name="management_price"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>
