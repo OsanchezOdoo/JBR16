@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="fda_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+
+                    <div class="page">
+                        <style type="text/css">
+                            <!-- .div {
+                                border: 1px solid black;
+                            } -->
+                            <!-- tr {
+                                margin: 15px;
+                                padding: 15px;
+                            } -->
+                            .table_manifest,
+                            .table_manifest th,
+                            .table_manifest td {
+                                border: 1px solid #838383;
+                            }
+                            .color {
+                                background-color:#dab87b;
+                            }
+                        </style>
+                        <span style="margin-bottom:30px; font-size:12px; font-weight: 700;"><strong>REPORTE DE DESPACHO PARA FDA (PRODUCTORES)</strong></span>
+                        <div class="clearfix" style="margin-bottom:30px;"/>
+
+                        <!-- <div class="row"> -->
+                        <table style="position:relative; float:left; width:25%; margin-bottom:50px; font-size:11px; line-height:1.5">
+                            <thead>
+                                <tr>
+                                    <td width="35%"><b>Control</b></td>
+                                    <td>123123</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Remisión</b></td>
+                                    <td>24232</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Pedido</b></td>
+                                    <td>C-IFM-286</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Fecha</b></td>
+                                    <td>26/11/2021</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Cliente</b></td>
+                                    <td>INDEX FRESH, INC.</td>
+                                </tr>
+                                </thead>
+                        </table>
+                    <!-- </div> -->
+
+
+                        <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo)" style="position:relative; float:left; padding:0; margin-top:0;" width="120" height="100" alt="Logo"/>
+
+                        <div class="clearfix"/>
+                        <span style="font-size:11px;"><b>Resumen por Calibre</b></span>
+                        <table class="table_manifest" style="width:100%; font-size:11px; border:1px solid #838383; border-collapse:separate; border-spacing:2px 2px;">
+                            <thead>
+                                <tr>
+                                    <th class="color">Registro</th>
+                                    <th class="color">Productor</th>
+                                    <th class="color">Marca</th>
+                                    <th class="color">Categoría</th>
+                                    <th class="color">48M</th>
+                                    <th class="color">60</th>
+                                    <th class="color">Total</th>
+                                    <th class="color">FDA</th>
+                                    <th class="color">Municipio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>HUE08160090406</td>
+                                    <td>CRUZ TINOCO MARIA DE LA LUZ</td>
+                                    <td>AVO TERRA</td>
+                                    <td>USA CLASE 1 </td>
+                                    <td>87</td>
+                                    <td></td>
+                                    <td>87</td>
+                                    <td></td>
+                                    <td>ARIO DE ROSALES</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="color"><strong>Total</strong></td>
+                                    <td class="color"><strong>87</strong></td>
+                                    <td class="color"><strong>160</strong></td>
+                                    <td class="color"><strong>1240</strong></td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <span style="font-size:11px;"><b>Resumen por Huerta</b></span>
+                        <table class="table_manifest" style="width:70%; font-size:11px; border:1px solid #838383; border-collapse:separate; border-spacing:2px 2px;">
+                            <thead>
+                                <tr>
+                                    <th class="color">Huerta</th>
+                                    <th class="color">Nombre</th>
+                                    <th class="color">Calibre</th>
+                                    <th class="color">Cantidad</th>
+                                    <th class="color">Kgs.</th>
+                                    <th class="color">Precio</th>
+                                    <th class="color">Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>LA TABLA DEL MOLINO 6</td>
+                                    <td>48M</td>
+                                    <td>87</td>
+                                    <td>1,348.50</td>
+                                    <td>$0.00</td>
+                                    <td>$0.00</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="color"><strong>Total</strong></td>
+                                    <td class="color"><strong>1,240</strong></td>
+                                    <td class="color"><strong>18,548.00</strong></td>
+                                    <td class="color"><strong></strong></td>
+                                    <td class="color"><strong>$0.00</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_fda_report" model="report.paperformat">
+        <field name="name">L. DE PRODUCTORES</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">13</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">3</field>
+        <field name="dpi">130</field>
+    </record>
+
+    <record id="fda_report_action" model="ir.actions.report">
+        <field name="name">L. DE PRODUCTORES</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">xma_shipment_report.fda_report</field>
+        <field name="report_file">xma_shipment_report.fda_report</field>
+        <field name="print_report_name">'L. DE PRODUCTORES'</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_fda_report"/>
+    </record>
+</odoo>
