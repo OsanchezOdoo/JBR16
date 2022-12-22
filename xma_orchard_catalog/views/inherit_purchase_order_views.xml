@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_purchase_orderr_form_view" model="ir.ui.view">
+        <field name="name">inherit.purchase.orderr.form.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='purchase_delivery_invoice']" position="after">
+                <page name="purchase_orchard" string="Huerta">
+                    <group>
+                        <group>
+                            <field name="orchard_id"/>
+                            <field name="sader"/>
+                            <field name="state_id"/>
+                            <field name="municipality_id"/>
+                            <field name="locality"/>
+                            <field name="is_china"/>
+                            <field name="is_ngg"/>
+                        </group>
+                        <group>
+                            <field name="price_type"/>
+                            <field name="collector_id"/>
+                            <field name="cut_type"/>
+                            <field name="cutting_company"/>
+                            <field name="damage_type"/>
+                            <field name="truck"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
